@@ -1,0 +1,17 @@
+ok we are making a fun game called "party line" in it you enter a URL and then select from a number of personas which are represented by the following:
+[ emoji | persona description ]
+
+these are toggles ... then you press "call the party line" and this does a server request to something you are not supposed to build ... but the request should be 
+
+{ url: "url", personas: [persona1_id, persona2_id] }
+
+After this an id is returned corresponding to the call
+
+The id then can be used for buttons that are after each persona. You have "add to call" and if the user presses that than a request
+
+add_to_call is sent with the {id: <id returned>, persona: <persona_id>}
+
+there's also "hangup" to remove the person from the call, this would invoke
+
+remove_from_call {id: <call_id>, persona: <persona_id>}
+
