@@ -190,3 +190,41 @@ urlInput.addEventListener('input', updateCallButton);
 
 // Initial state
 updateCallButton();
+
+function initializeTTS() {
+  ttsWebSocket = new WebSocket('ws://localhost:8765');
+  
+  ttsWebSocket.onopen = () => {
+    isTTSConnected = true;
+  };
+  
+  ttsWebSocket.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    if (data.type === 'audio_chunk') {
+      playAudioChunk(data);
+    }
+  };
+}
+
+function playAudioChunk(data) {
+  const audioBytes = atob(data.data);
+  const audioArray = new Uint8Array(audioBytes.length);
+  for (let i = 0; i < audioBytes.length; i++) {
+    audioArray[i] = audioBytes.charCodeAt(i);
+  }
+  
+  const audioBlob = new Blob([audioArray], { type: 'audio/wav' });
+  const audioUrl = URL.createObjectURL(audioBlob);
+  const audio = new Audio(audioUrl);
+  audio.play();
+}
+
+function synthesizeText(text, speakerName) {
+  if (isTTSConnected) {
+    ttsWebSocket.send(JSON.stringify({
+      type: 'generate_speech',
+      text: text,
+      speaker_names: [speakerName]
+    }));
+  }
+}
