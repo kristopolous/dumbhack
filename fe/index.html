@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Party Line</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-overlay">
+      <h1 class="header-title">Party Line</h1>
+      <p class="header-subtitle">Initiate the Conference: Assemble Personas for Strategic Dialogue Informed by the Designated Resource</p>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="url-section">
+      <label for="urlInput" class="label">Designate the Primary Resource (URL):</label>
+      <input type="url" id="urlInput" placeholder="https://example.com" required aria-describedby="urlHelp">
+      <small id="urlHelp">This shall seed the discourse parameters.</small>
+    </section>
+
+    <section class="personas-section" aria-labelledby="personasHeading">
+      <h2 id="personasHeading" class="section-title">Select Personnel Profiles</h2>
+      <div class="personas-grid" id="personasGrid">
+        <!-- Personas will be populated by JS -->
+      </div>
+    </section>
+
+    <button id="callButton" class="call-button" disabled aria-live="polite">
+      Initiate Conference
+    </button>
+
+    <section id="callControls" class="call-controls" style="display: none;" aria-live="polite">
+      <h3 class="section-title">Active Conference Identifier: <span id="callIdDisplay"></span></h3>
+      <p class="status">Manage personnel allocation below.</p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
